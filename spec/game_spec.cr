@@ -2,6 +2,18 @@ require "./spec_helper"
 
 module BowlingKata
   Spec2.describe Game do
+    describe "#score" do
+      it "is a simple sum, when no stikes and spares" do
+        check [g : NoStrikesAndSpares], score_is(g, g.sum)
+      end
+
+      def score_is(g, expected)
+        game = Game.new
+        g.each { |pins| game.roll(pins) }
+        game.score == expected
+      end
+    end
+
     describe GameGen do
       {% for gen in [AverageGame, NearPerfectGame, LuckyGame] %}
       it "generates good {{gen}}" do

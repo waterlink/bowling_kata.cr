@@ -2,6 +2,17 @@ require "quick"
 
 module BowlingKata
   class Game
+    def roll(pins)
+      rolls << pins
+    end
+
+    def score
+      rolls.sum
+    end
+
+    private def rolls
+      @_rolls ||= [] of Int32
+    end
   end
 
   class GameGen(A1, A2, B)
@@ -93,6 +104,8 @@ module BowlingKata
   alias AverageGame = GameGen(0, 0, 11)
   alias NearPerfectGame = GameGen(10, 0, 11)
   alias LuckyGame = GameGen(8, 0, 11)
+
+  alias NoStrikesAndSpares = GameGen(0, 0, 10)
 
   class ArrayGen(A, T)
     include Quick::Generator(typeof(self.class.next))
